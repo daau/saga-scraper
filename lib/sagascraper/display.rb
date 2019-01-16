@@ -6,7 +6,6 @@ module SagaScraper
       puts ("="*25).red
       puts header.red
       puts ("="*25).red
-      puts "\n"
     end
 
     def self.print_subheader(subheader)

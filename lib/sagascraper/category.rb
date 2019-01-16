@@ -6,28 +6,36 @@ require_relative "display"
 
 module SagaScraper
   class Category
-    attr_accessor :equipment, :page
+    attr_accessor :url, :name, :equipment, :page
 
     def initialize(url, name)
       @url = url
       @name = name
-
       @equipments = []
+      @page = nil
+    end
+
+    def get_page
+      @page = Timeout::timeout(6) do
+        Nokogiri::HTML(open(@url))
+      end      
     end
 
     def scrape_for_equipment_data
-      Display.print_subheader "Scraping for #{@name}..."
+      Display.print_subheader "Scraping for #{@name} data..."
+      get_page
+      get_equipments
+      get_equipment_data
+    end
 
-      page = Nokogiri::HTML(open(@url))
-      elements = page.css("table")
-
-      elements.each do |element|
-        equipment = Equipment.new.tap do |u|
-        end
+    def get_equipments
+      @page.css("table").each do |element|
+        @equipments << Equipment.new(element)
       end
     end
 
-    def get_data_from_elements
+    def get_equipment_data
+      @equipments.each {|eq| eq.get_data}
     end
   end
 end
