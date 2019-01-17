@@ -25,7 +25,9 @@ module SagaScraper
       Display.print_subheader "Scraping for #{@name} data..."
       get_page
       get_equipments
-      get_equipment_data
+      scrape_equipments_for_data
+      export
+      puts "done"
     end
 
     def get_equipments
@@ -34,8 +36,15 @@ module SagaScraper
       end
     end
 
-    def get_equipment_data
+    def scrape_equipments_for_data
       @equipments.each {|eq| eq.get_data}
+    end
+
+    def to_json
+      {
+        name: @name,
+        equipments: @equipments.map(&:to_json)
+      }
     end
   end
 end

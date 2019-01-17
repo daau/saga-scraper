@@ -11,7 +11,7 @@ module SagaScraper
       @element = element
       @id = nil
       @name = nil
-      @relative_image_url = nil
+      @image_url = nil
       @wearable_by = nil
       @requirements = nil
       @stats = nil
@@ -23,9 +23,11 @@ module SagaScraper
     def get_data
       @id = get_id
       @name = get_name
-      @relative_image_url = get_relative_image_url
+      @image_url = ROOT_URL + get_relative_image_url
       
-      raise InvalidTableError, "too many rows! (there were #{@element.css("tr").count} rows)" if @element.css("tr").count > 6 || @element.css("tr").count < 5
+      if @element.css("tr").count > 6 || @element.css("tr").count < 5
+        raise InvalidTableError, "Invalid number of rows! (there were #{@element.css("tr").count} rows)"
+      end
       
       puts @name.white
     end
@@ -43,7 +45,11 @@ module SagaScraper
     end
 
     def to_json
-
+      {
+        id: @id,
+        name: @name,
+        image_url: @image_url
+      }
     end
   end
 end

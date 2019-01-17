@@ -7,7 +7,7 @@ require_relative "sagascraper/display"
 
 module SagaScraper
   ROOT_URL = "https://maplesaga.com"
-  EQUIPMENT_URL = 'https://maplesaga.com/library/equip'
+  EQUIPMENT_URL = "https://maplesaga.com/library/equip"
     
   class Application
     attr_accessor :categories, :page
@@ -51,6 +51,13 @@ module SagaScraper
     end
 
     def export_equipment_categories_and_links
+      File.open("export.json", "wb") { |file| file.puts JSON.pretty_generate(self.to_json) }
+    end
+
+    def to_json
+      {
+        categories: @categories.map(&:to_json)
+      }
     end
   end
 end
