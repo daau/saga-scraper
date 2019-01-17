@@ -26,8 +26,6 @@ module SagaScraper
       get_page
       get_equipments
       scrape_equipments_for_data
-      export
-      puts "done"
     end
 
     def get_equipments

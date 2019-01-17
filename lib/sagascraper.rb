@@ -26,7 +26,7 @@ module SagaScraper
       scrape_categories_for_equipment_data
 
       Display.print_header "Exporting data..."
-      # export_equipment_categories_and_links
+      export_equipment_categories_and_links
     end
 
     def get_page
@@ -61,6 +61,5 @@ module SagaScraper
     end
   end
 end
-
 
 SagaScraper::Application.new.call
