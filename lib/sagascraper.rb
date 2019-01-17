@@ -5,10 +5,10 @@ require "awesome_print"
 require_relative "sagascraper/category"
 require_relative "sagascraper/display"
 
-ROOT_URL = "https://maplesaga.com"
-EQUIPMENT_URL = 'https://maplesaga.com/library/equip'
-
 module SagaScraper
+  ROOT_URL = "https://maplesaga.com"
+  EQUIPMENT_URL = 'https://maplesaga.com/library/equip'
+    
   class Application
     attr_accessor :categories, :page
 

@@ -25,7 +25,8 @@ module SagaScraper
       @name = get_name
       @relative_image_url = get_relative_image_url
       
-      binding.pry
+      raise InvalidTableError, "too many rows! (there were #{@element.css("tr").count} rows)" if @element.css("tr").count > 6 || @element.css("tr").count < 5
+      
       puts @name.white
     end
 
@@ -42,7 +43,7 @@ module SagaScraper
     end
 
     def to_json
-      
+
     end
   end
 end
