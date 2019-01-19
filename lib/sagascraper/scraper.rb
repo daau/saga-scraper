@@ -1,9 +1,14 @@
+require_relative './category/category_scraper'
+require_relative './category/category'
+require_relative './entry/entry_scraper'
+require_relative './entry/entry'
+
 module SagaScraper
   class Scraper
     attr_accessor :type, :categories
 
-    def initialize(arg)
-      @type = arg[:type]
+    def initialize(args)
+      @type = args[:type]
       @categories = []
     end
 
@@ -19,18 +24,18 @@ module SagaScraper
     private
 
     def scrape_for_categories
-      category_scraper = Scraper.for(type: @type)
+      category_scraper = ScraperFactory.for(type: @type)
       @categories = category_scraper.get_categories
     end
 
     def scrape_categories_for_entries
       @categories.each do |category|
-        EntryScraper.for(type: @type).scrape(category: category)
+        EntryScraper.for(type: @type, category: category).scrape
       end
     end
 
     def to_json
       { categories: @categories.map(&:to_json) }
-    end  
+    end
   end
 end

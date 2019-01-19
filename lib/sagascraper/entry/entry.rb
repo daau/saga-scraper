@@ -1,8 +1,7 @@
-require "nokogiri"
-require "open-uri"
-require_relative "errors"
-
 module SagaScraper
+  class Item
+  end
+
   class Equipment
     attr_accessor :element, :id, :name, :image_url, :wearable_by, :requirements, :stats,
       :dropped_by, :obtained_from, :remarks

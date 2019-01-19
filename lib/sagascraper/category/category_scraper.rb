@@ -1,5 +1,7 @@
+require_relative './category'
+
 module SagaScraper
-  class Scraper
+  class ScraperFactory
     def self.for(args)
       case args[:type]
       when :equipment
@@ -11,10 +13,11 @@ module SagaScraper
   end
 
 
+
   class CategoryScraper
     attr_accessor :url, :page
 
-    def initialize(args)
+    def initialize
       @categories = []
     end
 
@@ -32,6 +35,7 @@ module SagaScraper
       end      
     end
   end
+
 
 
   class EquipmentCategoryScraper < CategoryScraper
@@ -53,6 +57,7 @@ module SagaScraper
   end
 
 
+
   class ItemCategoryScraper < CategoryScraper
     def initialize
       @url = ITEM_URL
@@ -60,6 +65,11 @@ module SagaScraper
     end
 
     def scrape_for_categories
+      @page.css('.container-fluid > .row > a').each do |element|
+        # Add code here
+
+        @categories << Category.new(url, name)
+      end      
     end
   end
 end
