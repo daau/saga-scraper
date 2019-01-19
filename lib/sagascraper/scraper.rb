@@ -4,7 +4,7 @@ module SagaScraper
 
     def initialize(arg)
       @type = arg[:type]
-      @categories
+      @categories = []
     end
 
     def scrape
@@ -19,13 +19,13 @@ module SagaScraper
     private
 
     def scrape_for_categories
-      category_crawler = Scraper.for(type: @type)
-      @categories = category_crawler.get_categories
+      category_scraper = Scraper.for(type: @type)
+      @categories = category_scraper.get_categories
     end
 
     def scrape_categories_for_entries
       @categories.each do |category|
-        EntryScraper.new(type: @type, category: category).scrape
+        EntryScraper.for(type: @type).scrape(category: category)
       end
     end
 

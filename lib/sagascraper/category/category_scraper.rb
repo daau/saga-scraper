@@ -35,7 +35,7 @@ module SagaScraper
 
 
   class EquipmentCategoryScraper < CategoryScraper
-    def initialize(args)
+    def initialize
       @url = EQUIPMENT_URL
       super
     end
@@ -54,7 +54,7 @@ module SagaScraper
 
 
   class ItemCategoryScraper < CategoryScraper
-    def initialize(args)
+    def initialize
       @url = ITEM_URL
       super
     end
