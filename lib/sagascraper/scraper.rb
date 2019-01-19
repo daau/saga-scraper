@@ -19,7 +19,11 @@ module SagaScraper
 
     def export_data(filepath)
       File.open(filepath, "wb") { |file| file.puts JSON.pretty_generate(self.to_json) }
-    end  
+    end
+
+    def to_json
+      { categories: @categories.map(&:to_json) }
+    end    
 
     private
 
@@ -30,12 +34,9 @@ module SagaScraper
 
     def scrape_categories_for_entries
       @categories.each do |category|
-        EntryScraper.for(type: @type, category: category).scrape
+        puts category.name.red
+        EntryScraperFactory.for(type: @type, category: category).scrape
       end
-    end
-
-    def to_json
-      { categories: @categories.map(&:to_json) }
     end
   end
 end

@@ -11,10 +11,9 @@ module SagaScraper
     
   class Application
     def call
-      binding.pry
       equipment_scraper = Scraper.new(type: :equipment)
       equipment_scraper.scrape
-      # equipment_scraper.export_data("export/equipment.json")
+      equipment_scraper.export_data("export/equipment.json")
 
       # item_scraper = Scraper.new(type: :item)
       # item_scraper.scrape

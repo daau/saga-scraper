@@ -16,7 +16,7 @@ module SagaScraper
     attr_accessor :category, :url, :page
 
     def initialize(category)
-      @category
+      @category = category
       @url = @category.url
     end
 
@@ -42,42 +42,69 @@ module SagaScraper
 
     def get_entries
       entries = []
-
-      @page.css('.').each do |page_element|
-        entries << Entry.new.tap do |entry|
-
+      @page.css('table').each do |el|
+        entries << entry = Equipment.new.tap do |entry|
+          entry.id            = get_id(el)
+          entry.name          = get_name(el)
+          entry.image_url     = get_image_url(el)
+          entry.wearable_by   = get_wearable_by(el)
+          entry.requirements  = get_wearable_by(el)
+          entry.stats         = get_stats(el)
+          entry.dropped_by    = get_dropped_by(el)
+          entry.obtained_from = get_obtained_from(el)
+          entry.remarks       = get_remarks(el)
         end
+
+        puts entry.name
       end
 
       entries
     end
 
-    def get_data
-      @id = get_id
-      @name = get_name
-      @image_url = ROOT_URL + get_relative_image_url
-      
-      if @element.css("tr").count > 6 || @element.css("tr").count < 5
-        raise InvalidTableError, "Invalid number of rows! (there were #{@element.css("tr").count} rows)"
-      end
-      
-      puts @name.white
+    def get_id(element)
+      element.attributes["id"].value.to_i
     end
 
-    def get_id
-      @element.attributes["id"].value
+    def get_name(element)
+      element.css("tr")[0].children[3].children[1].children[0].text.strip
     end
 
-    def get_name
-      @element.css("tr")[0].children[3].children[1].children[0].text
+    def get_image_url(element)
+      ROOT_URL + element.children[1].children[1].children[1].children[1].attributes["src"].value
     end
 
-    def get_image_url
-      ROOT_URL + @element.children[1].children[1].children[1].children[1].attributes["src"].value
-    end   
+    def get_wearable_by(element)
+      element.children[1].children[3].children[1].children[1].children[1].text.strip
+    end
+
+    def get_requirements(element)
+      element.children[1].children[3].children[1].children[3].children[1].text.strip
+    end
+
+    def get_stats(element)
+      element.children[1].children[5].children[1].children[2].text.strip
+    end
+
+    def get_dropped_by(element)
+      element.children[1]
+             .children[7]
+             .children[1]
+             .children
+             .select{|e| e.class != Nokogiri::XML::Text && e.name == "a"}
+             .map{|e| e.children[0].text.strip}
+             .join(", ")
+    end
+
+    def get_obtained_from(element)
+      return nil if element.css("tr").count == 5
+      element.children[1].children[9].children[1].children[2].text.strip
+    end
+
+    def get_remarks(element)
+      index = element.css("tr").count == 5 ? 9 : 11
+      element.children[1].children[index].children[1].children[2].text.strip
+    end
   end
-
-
 
   class ItemEntryScraper < EntryScraper
     def scrape
