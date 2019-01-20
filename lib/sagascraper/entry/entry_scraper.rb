@@ -105,9 +105,6 @@ module SagaScraper
     end
   end
 
-  class InvalidTableError < StandardError
-  end
-
   class ItemEntryScraper < EntryScraper
     private
 
