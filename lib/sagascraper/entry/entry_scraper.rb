@@ -142,7 +142,11 @@ module SagaScraper
     end
 
     def get_description(element)
-      element.css("tr")[1].children[1].children[0].text.strip
+      element.css("tr")[1]
+             .children[1]
+             .children
+             .select{|e| e.class == Nokogiri::XML::Text}
+             .map{|e| e.text.strip}.join(" ")
     end
 
     def get_dropped_by(element)
