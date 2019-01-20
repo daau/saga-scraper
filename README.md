@@ -37,3 +37,5 @@ remarks:        STRING
 1. Download the repository and extract it to your local machine
 2. `bundle install`
 3. `ruby lib/sagascraper.rb`
+
+Alternaively if you're just interested in the scraped data, check the `./export` folder of this repository.
