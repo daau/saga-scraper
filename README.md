@@ -10,25 +10,28 @@ The data is presented in .json format. Data entries are organized into the
 categories shown on the MapleSaga library website.
 
 The following attributes are recorded for equipment:
-- id
-- name
-- image_url
-- wearable_by
-- requirements
-- stats
-- dropped_by
-- obtained_from
-- remarks
+```
+id:             INTEGER
+name:           STRING
+image_url:      STRING
+wearable_by:    STRING
+requirements:   STRING
+stats:          STRING
+dropped_by:     STRING
+obtained_from:  STRING
+remarks:        STRING
+```
 
 The following attributes are recorded for items:
-- id
-- name
-- image_url
-- description
-- dropped_by
-- obtained_from
-- remarks
-
+```
+id:             INTEGER
+name:           STRING
+image_url:      STRING 
+description:    STRING 
+dropped_by:     STRING 
+obtained_from:  STRING 
+remarks:        STRING 
+```
 
 ## Installation and Usage
 1. Download the repository and extract it to your local machine

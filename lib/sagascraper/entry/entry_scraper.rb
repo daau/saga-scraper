@@ -105,6 +105,8 @@ module SagaScraper
     end
   end
 
+  
+
   class ItemEntryScraper < EntryScraper
     private
 
