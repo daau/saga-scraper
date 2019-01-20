@@ -66,7 +66,10 @@ module SagaScraper
 
     def scrape_for_categories
       @page.css('.container-fluid > .row > a').each do |element|
-        # Add code here
+        name = element.children[1].children[0].text.strip
+
+        relative_path = element.attributes["href"].value
+        url = ROOT_URL + relative_path
 
         @categories << Category.new(url, name)
       end      
