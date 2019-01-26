@@ -47,7 +47,7 @@ module SagaScraper
           entry.name          = get_name(el)
           entry.image_url     = get_image_url(el)
           entry.wearable_by   = get_wearable_by(el)
-          entry.requirements  = get_wearable_by(el)
+          entry.requirements  = get_requirements(el)
           entry.stats         = get_stats(el)
           entry.dropped_by    = get_dropped_by(el)
           entry.obtained_from = get_obtained_from(el)

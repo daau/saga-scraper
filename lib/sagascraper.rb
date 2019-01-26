@@ -12,10 +12,10 @@ module SagaScraper
     
   class Application
     def call
-      # Display.header("Obtaining equipment data...")
-      # equipment_scraper = Scraper.new(type: :equipment)
-      # equipment_scraper.scrape
-      # equipment_scraper.export_data("export/equipment.json")
+      Display.header("Obtaining equipment data...")
+      equipment_scraper = Scraper.new(type: :equipment)
+      equipment_scraper.scrape
+      equipment_scraper.export_data("export/equipment.json")
 
       Display.header("Obtaining item data...")
       item_scraper = Scraper.new(type: :item)
