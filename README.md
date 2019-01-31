@@ -5,6 +5,10 @@ This script is written in Ruby.
 
 Data for both items and equipments are extracted. Data is exported to the `./export` directory.
 
+Read below for instructions on how to use this script. Alternaively if you're just interested in the scraped data, 
+check the `./export` folder of this repository. Files containing a list of all the chairs in MapleSaga are also included,
+although that data was obtained through a combination of various scripts, OCR, and manual data cleaning.
+
 ## Data format
 The data is presented in .json format. Data entries are organized into the 
 categories shown on the MapleSaga library website.
@@ -37,5 +41,3 @@ remarks:        STRING
 1. Download the repository and extract it to your local machine
 2. `bundle install`
 3. `ruby lib/sagascraper.rb`
-
-Alternaively if you're just interested in the scraped data, check the `./export` folder of this repository.
